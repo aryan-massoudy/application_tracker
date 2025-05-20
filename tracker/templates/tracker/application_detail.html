@@ -1,0 +1,58 @@
+{% extends "tracker/base.html" %}
+
+{% block title %}Application Details{% endblock %}
+
+{% block content %}
+<div class="card status-{{ application.status }}">
+    <div class="card-header">
+        <h2>Application Details</h2>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Company Name</dt>
+            <dd class="col-sm-9">{{ application.company_name }}</dd>
+
+            <dt class="col-sm-3">Position</dt>
+            <dd class="col-sm-9">{{ application.position }}</dd>
+
+            <dt class="col-sm-3">Application Date</dt>
+            <dd class="col-sm-9">{{ application.application_date }}</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">{{ application.get_status_display }}</dd>
+
+            <dt class="col-sm-3">Application Link</dt>
+            <dd class="col-sm-9">
+                {% if application.application_link %}
+                    <a href="{{ application.application_link }}" target="_blank">{{ application.application_link }}</a>
+                {% else %}
+                    Not provided
+                {% endif %}
+            </dd>
+
+            <dt class="col-sm-3">Contact Email</dt>
+            <dd class="col-sm-9">
+                {% if application.contact_email %}
+                    <a href="mailto:{{ application.contact_email }}">{{ application.contact_email }}</a>
+                {% else %}
+                    Not provided
+                {% endif %}
+            </dd>
+
+            <dt class="col-sm-3">Notes</dt>
+            <dd class="col-sm-9">
+                {% if application.notes %}
+                    {{ application.notes|linebreaks }}
+                {% else %}
+                    No notes added
+                {% endif %}
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'application_update' application.pk %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'application_delete' application.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'application_list' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+{% endblock %}

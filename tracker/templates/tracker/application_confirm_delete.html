@@ -1,0 +1,15 @@
+{% extends "tracker/base.html" %}
+
+{% block title %}Delete Application{% endblock %}
+
+{% block content %}
+<h2>Delete Application</h2>
+<div class="alert alert-danger">
+    Are you sure you want to delete the application for "{{ application.position }}" at "{{ application.company_name }}"?
+</div>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+    <a href="{% url 'application_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
